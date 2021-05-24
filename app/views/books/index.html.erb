@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class= "text-center">Books</h1>
+
+<nav class="navbar navbar-light bg-light my-3">
+
+    <%= form_tag books_path, method: :get do %>
+
+        <%= text_field_tag :search, params[:search], placeholder: 'Enter On_shelf or Borrow'%>
+        <%= submit_tag ("Search")  %>
+        
+    <% end %>
+</nav>
+
+
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to "Title", :sort => "title" , class: "btn btn-info"%> </th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Loan date</th>
+      <th>Return date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bookses.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.status %></td>
+        <td><%= book.loan_date %></td>
+        <td><%= book.return_date %></td>
+        <td><%= link_to 'Show', book, class: "btn btn-info" %></td>
+        <td><%= link_to 'Edit', edit_book_path(book), class: "btn btn-success" %></td>
+        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Book', new_book_path , class: "btn btn-primary", type: "button" %>
